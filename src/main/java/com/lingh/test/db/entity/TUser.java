@@ -1,6 +1,8 @@
 package com.lingh.test.db.entity;
 
-public class TUser {
+import java.io.Serializable;
+
+public class TUser implements Serializable {
     private Integer id;
 
     private String username;

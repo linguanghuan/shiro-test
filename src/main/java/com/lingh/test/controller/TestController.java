@@ -3,6 +3,11 @@ package com.lingh.test.controller;
 import com.lingh.test.db.dao.TestMapper;
 import com.lingh.test.db.entity.Test;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -54,7 +59,29 @@ public class TestController {
         test.setName("111");
         jsonRedisTemplate.opsForValue().set("object", test);
         Test testFromRedis = (Test) jsonRedisTemplate.opsForValue().get("object");
-        log.info("value from redis:{}",testFromRedis.getName());
+        log.info("value from redis:{}", testFromRedis.getName());
         return (String) redisTemplate.opsForValue().get("test");
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        Subject subject = SecurityUtils.getSubject();
+        boolean authenticated = subject.isAuthenticated();
+        log.info("authenticated:{}", authenticated);
+        if (authenticated) {
+            return "already login";
+        }
+
+        UsernamePasswordToken token = new UsernamePasswordToken("admin", "123456");
+        try {
+            subject.login(token);
+        } catch (LockedAccountException lae) {
+            token.clear();
+            return "failed: locked account";
+        } catch (AuthenticationException e) {
+            token.clear();
+            return "failed";
+        }
+        return "succeed";
     }
 }

@@ -5,6 +5,7 @@ import com.lingh.test.service.ResourceService;
 import com.lingh.test.shiro.MyShiroRealm;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -86,7 +87,8 @@ public class ShiroConfig {
     @Bean
     public MyShiroRealm myShiroRealm(){
         MyShiroRealm myShiroRealm = new MyShiroRealm();
-        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+//        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        myShiroRealm.setCredentialsMatcher(new SimpleCredentialsMatcher());
         return myShiroRealm;
     }
 
