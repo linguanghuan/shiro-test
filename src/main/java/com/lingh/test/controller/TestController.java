@@ -27,12 +27,12 @@ public class TestController {
     @Autowired
     RedisTemplate jsonRedisTemplate;
 
-    @GetMapping("/test")
+    @GetMapping("/hello")
     public String test() {
         return "hello world";
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String add() {
         Test test = new Test();
         test.setName("name");
@@ -40,7 +40,7 @@ public class TestController {
         return "success";
     }
 
-    @GetMapping("get")
+    @GetMapping("/get")
     public Test get() {
         return testMapper.selectByPrimaryKey(1);
     }
@@ -54,7 +54,6 @@ public class TestController {
         test.setName("111");
         jsonRedisTemplate.opsForValue().set("object", test);
         Test testFromRedis = (Test) jsonRedisTemplate.opsForValue().get("object");
-        System.out.println(testFromRedis.getName());
         log.info("value from redis:{}",testFromRedis.getName());
         return (String) redisTemplate.opsForValue().get("test");
     }

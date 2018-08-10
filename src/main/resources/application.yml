@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?setUnicode=true&characterEncoding=utf8
+    username: test
+    password: test
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 8 #初始化连接大小
+      min-idle: 5 #最小空闲连接数
+      max-active: 10 #最大连接数
+      query-timeout: 6000 # 查询超时时间
+      transaction-query-timeout: 6000 #事务查询超时时间
+      remove-abandoned-timeout: 1800 #关闭空闲连接超时时间
+      filter-class-names: stat
+      filters: stat,config
+
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+
+mybatis:
+  mapper-locations: classpath:com/lingh/test/db/xml/*.xml
+  type-aliases-package: com.lingh.test.db.entity
+
+
