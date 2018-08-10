@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lingh.test.db.dao.TResourceMapper">
+  <resultMap id="BaseResultMap" type="com.lingh.test.db.entity.TResource">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="resource_url" jdbcType="VARCHAR" property="resourceUrl" />
+    <result column="resource_type" jdbcType="VARCHAR" property="resourceType" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_resource
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lingh.test.db.entity.TResource">
+    insert into t_resource (id, resource_url, resource_type, 
+      parent_id, seq)
+    values (#{id,jdbcType=INTEGER}, #{resourceUrl,jdbcType=VARCHAR}, #{resourceType,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lingh.test.db.entity.TResource">
+    update t_resource
+    set resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      resource_type = #{resourceType,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, resource_url, resource_type, parent_id, seq
+    from t_resource
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, resource_url, resource_type, parent_id, seq
+    from t_resource
+  </select>
+</mapper>

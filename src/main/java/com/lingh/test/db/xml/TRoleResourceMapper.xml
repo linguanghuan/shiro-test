@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lingh.test.db.dao.TRoleResourceMapper">
+  <resultMap id="BaseResultMap" type="com.lingh.test.db.entity.TRoleResource">
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="resoruce_id" jdbcType="INTEGER" property="resoruceId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.lingh.test.db.entity.TRoleResource">
+    insert into t_role_resource (role_id, resoruce_id)
+    values (#{roleId,jdbcType=INTEGER}, #{resoruceId,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select role_id, resoruce_id
+    from t_role_resource
+  </select>
+</mapper>

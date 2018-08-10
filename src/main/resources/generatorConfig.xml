@@ -42,5 +42,10 @@
                              targetProject="src/main/java" type="XMLMAPPER"/>
 
         <table schema="test" tableName="test"/>
+        <table schema="t_user" tableName="t_user"/>
+        <table schema="t_role" tableName="t_role"/>
+        <table schema="t_resource" tableName="t_resource"/>
+        <table schema="t_user_role" tableName="t_user_role"/>
+        <table schema="t_role_resource" tableName="t_role_resource"/>
     </context>
 </generatorConfiguration>
