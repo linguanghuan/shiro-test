@@ -35,4 +35,12 @@
     select id, resource_url, resource_type, parent_id, seq
     from t_resource
   </select>
+
+  <select id="getByUserId" resultMap="BaseResultMap" parameterType="int">
+    SELECT r.id, r.resource_url, r.resource_type, r.parent_id, r.seq FROM t_resource r
+      INNER JOIN t_role_resource rr ON r.id = rr.resoruce_id
+      INNER JOIN t_user_role ur ON rr.role_id = ur.role_id
+      INNER JOIN t_user u ON ur.user_id = u.id
+      WHERE u.id=#{userId}
+  </select>
 </mapper>

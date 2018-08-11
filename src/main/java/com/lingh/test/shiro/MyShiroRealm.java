@@ -1,15 +1,19 @@
 package com.lingh.test.shiro;
 
+import com.lingh.test.db.entity.TResource;
 import com.lingh.test.db.entity.TUser;
 import com.lingh.test.service.ResourceService;
 import com.lingh.test.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 public class MyShiroRealm extends AuthorizingRealm {
 
@@ -22,7 +26,13 @@ public class MyShiroRealm extends AuthorizingRealm {
     // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+        TUser user = (TUser) SecurityUtils.getSubject().getPrincipal();
+        List<TResource> resourceList = resourcesService.getByUserId(user.getId());
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        for (TResource tResource : resourceList) {
+            info.addStringPermission(tResource.getResourceUrl());
+        }
+        return info;
     }
 
     // 获取认证信息

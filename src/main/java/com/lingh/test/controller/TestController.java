@@ -64,15 +64,15 @@ public class TestController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(String username) {
         Subject subject = SecurityUtils.getSubject();
         boolean authenticated = subject.isAuthenticated();
         log.info("authenticated:{}", authenticated);
         if (authenticated) {
             return "already login";
         }
-
-        UsernamePasswordToken token = new UsernamePasswordToken("admin", "123456");
+        String password="123456";
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             subject.login(token);
         } catch (LockedAccountException lae) {
@@ -83,5 +83,20 @@ public class TestController {
             return "failed";
         }
         return "succeed";
+    }
+
+    @GetMapping("/r1.html")
+    public String r1() {
+        return "r1";
+    }
+
+    @GetMapping("/r2.html")
+    public String r2() {
+        return "r2";
+    }
+
+    @GetMapping("/r3.html")
+    public String r3() {
+        return "r3";
     }
 }

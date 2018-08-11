@@ -16,4 +16,8 @@ public class ResourceService {
     public List<TResource> getAll() {
         return resourceMapper.selectAll();
     }
+
+    public List<TResource> getByUserId(Integer userId) {
+        return resourceMapper.getByUserId(userId);
+    }
 }
