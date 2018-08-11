@@ -99,4 +99,10 @@ public class TestController {
     public String r3() {
         return "r3";
     }
+
+    @GetMapping("/403")
+    public String permissionDeny() {
+        return "permission deny";
+    }
+
 }

@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/test?setUnicode=true&characterEncoding=utf8
@@ -26,6 +28,7 @@ spring:
         max-idle: 8
         min-idle: 0
         max-wait: -1ms
+
 
 mybatis:
   mapper-locations: classpath:com/lingh/test/db/xml/*.xml
